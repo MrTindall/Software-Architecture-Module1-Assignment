@@ -2,19 +2,16 @@ package us.mattgreen;
 
 import java.io.*;
 
-/**
- * Created by mgreen14 on 12/27/17.
- */
 public class FileOutput {
 
-    Writer out = null;
+    private Writer out = null;
     private String fileName;
 
-    public FileOutput(String fileName) {
+    public FileOutput(String fileName, boolean append) {
         this.fileName = fileName;
         try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
-        } catch (FileNotFoundException e) {
+            out = new BufferedWriter(new FileWriter(fileName, append)); // Use FileWriter with append mode
+        } catch (IOException e) {
             System.out.println("File Open Error: " + fileName + " " + e);
         }
     }
@@ -35,6 +32,5 @@ public class FileOutput {
                 e.printStackTrace();
             }
         }
-
     }
 }
