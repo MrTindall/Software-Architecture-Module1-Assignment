@@ -13,27 +13,57 @@ public class AnimalInput {
     }
 
     public void addAnimal() {
+
         System.out.println("What type of animal do you want to create? (Enter 'Dog' or 'Cat')");
         String animalType = keyboard.next();
 
         if (animalType.equalsIgnoreCase("Dog")) {
             System.out.println("Enter the name of the dog:");
-            String name = keyboard.next();
-            System.out.println("Is the dog friendly? (true/false):");
-            boolean friendly = keyboard.nextBoolean();
+            String name = keyboard.nextLine();
 
-            Dog dog = new Dog(friendly, name);
-            zoo.add(dog); // Add the created dog to the Main class's zoo ArrayList
+            while(true)
+            {
+                System.out.println("Is the dog friendly? (true/false):");
+                String answer = keyboard.next();
+
+                if(answer.equalsIgnoreCase("true")  || name.equalsIgnoreCase("false"))
+                {
+                    boolean friendly = Boolean.parseBoolean(answer);
+                    Dog dog = new Dog(friendly, name);
+                    zoo.add(dog); // Add the created dog to the Main class's zoo ArrayList
+                    break;
+                }
+                else
+                {
+                    System.out.println("Enter True or False");
+                }
+
+            }
+
         } else if (animalType.equalsIgnoreCase("Cat")) {
+
             System.out.println("Enter the name of the cat:");
             String name = keyboard.next();
-            System.out.println("Enter the number of mice killed:");
-            int mousesKilled = keyboard.nextInt();
+            while(true)
+            {
+                System.out.println("Enter the number of mice killed:");
+                try {
+                    int mousesKilled = keyboard.nextInt();
+                    Cat cat = new Cat(mousesKilled, name);
+                    zoo.add(cat); // Add the created cat to the Main class's zoo ArrayList
+                    break;
+                }
+                catch (Exception e)
+                {
+                    System.out.println("That is not a number");
+                }
 
-            Cat cat = new Cat(mousesKilled, name);
-            zoo.add(cat); // Add the created cat to the Main class's zoo ArrayList
-        } else {
-            System.out.println("Invalid animal type. Please enter 'Dog' or 'Cat'.");
+            }
+
         }
+        else{
+            System.out.println("That is not an option");
+        }
+
     }
 }
